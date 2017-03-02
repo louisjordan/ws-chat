@@ -1,0 +1,30 @@
+{
+  "name": "ws-chat",
+  "version": "0.0.1",
+  "description": "A Node/Websocket/React chat app",
+  "main": "",
+  "scripts": {
+    "start": "",
+    "watch": "webpack --watch",
+    "build": "webpack",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Louis Jordan",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.14.1",
+    "http": "0.0.0",
+    "ws": "^2.1.0"
+  },
+  "devDependencies": {
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2",
+    "babel-core": "^6.23.1",
+    "babel-loader": "^6.3.2",
+    "babel-preset-es2015": "^6.22.0",
+    "babel-preset-react": "^6.22.0",
+    "nodemon": "^1.11.0",
+    "webpack": "^2.2.1",
+    "webpack-node-externals": "^1.5.4"
+  }
+}
