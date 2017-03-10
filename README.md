@@ -18,6 +18,12 @@ Install dependencies:
 $ yarn
 ```
 
+Build the code:
+
+```
+$ yarn build
+```
+
 Start the server:
 
 ```
@@ -32,8 +38,8 @@ Bundle files once:
 $ yarn build
 ```
 
-Watch files and bundle on change:
+Start Webpack Dev Server:
 
 ```
-$ yarn watch
+$ yarn dev
 ```
