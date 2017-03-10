@@ -1,0 +1,57 @@
+.landing {
+}
+
+.landing--container {
+  width: 30%;
+  height: 350px;
+  background: #fff;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.landing--content {
+  height: auto;
+  text-align: center;
+}
+
+.landing--content > * {
+  margin: 24px 0;
+}
+
+.landing--header {
+  font-size: 2em;
+  color: #111;
+}
+
+.landing--subheader {
+  font-size: 1em;
+  color: #333;
+}
+
+.landing--input {
+  height: 48px;
+  width: 50%;
+  margin: auto 8px;
+
+  font-family: Helvetica, sans-serif;
+  font-weight: lighter;
+  font-size: 2em;
+
+  outline: 0;
+  border: 0;
+  border-bottom: 2px solid #111;
+}
+
+.landing--button {
+  height: 48px;
+  width: 48px;
+  margin: auto 8px;
+  cursor: pointer;
+  font-size: 2em;
+}
+
+.landing--error {
+  height: 32px;
+  color: #f33;
+}

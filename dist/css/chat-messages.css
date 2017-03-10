@@ -1,0 +1,17 @@
+.chat-messages--container {
+  width: 100%;
+  background: #fff;
+  flex-grow: 1;
+  border-bottom: 1px solid #e1e1e1;
+  display: flex;
+  flex-direction: column;
+}
+
+.chat-messages--container > * {
+  margin: 8px;
+}
+
+.chat-messages--feed {
+  flex-grow: 1;
+  background: #f9f9f9;
+}

@@ -4,21 +4,41 @@
 
 */
 
-const path = require('path');
+const webpack = require('webpack');
+const { join } = require('path');
 
 module.exports = {
-  // bundle for the browser
-  target: 'web',
-  cache: true,
+  context: join(__dirname, '/src/client'),
   devtool: 'inline-source-map',
 
   // entry file for client code
-  entry: './src/client/index.jsx',
+  entry: [
+
+    // hot module replacement for React
+    'react-hot-loader/patch',
+
+    // bundle for dev webserver
+    'webpack-dev-server/client?http://localhost:8080',
+
+    // bundle client for hot reloading
+    'webpack/hot/only-dev-server',
+
+    // app entry point (context is ./src/client)
+    './index.jsx'
+  ],
 
   // output for bundled client code
   output: {
-    path: path.join(__dirname, '/dist'),
+    path: join(__dirname, '/dist'),
     filename: 'client.bundle.js'
+  },
+
+  devServer: {
+    // active hot reloading
+    hot: true,
+
+    contentBase: join(__dirname, '/dist'),
+    publicPath: '/'
   },
 
   // the transformations webpack should make before bundling
@@ -31,12 +51,16 @@ module.exports = {
         exclude: /node_modules/,
 
         // use babel loader to transpile ES6+ and JSX to ES5 syntax
-        loader: 'babel-loader',
-        options: {
-          cacheDirectory: true,
-          presets: ['es2015', 'react']
-        }
+        loader: 'babel-loader'
       }
     ]
-  }
+  },
+
+  // plugins
+  plugins: [
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NamedModulesPlugin(),
+    new webpack.optimize.UglifyJsPlugin()
+    // new webpack.optimize.CommonsChunkPlugin({})
+  ]
 };
