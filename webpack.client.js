@@ -10,6 +10,7 @@ const { join } = require('path');
 module.exports = {
   context: join(__dirname, '/src/client'),
   devtool: 'inline-source-map',
+  cache: true,
 
   // entry file for client code
   entry: [
@@ -69,7 +70,14 @@ module.exports = {
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NamedModulesPlugin(),
-    new webpack.optimize.UglifyJsPlugin()
+    new webpack.optimize.UglifyJsPlugin({
+      output: {
+        comments: false
+      },
+      compressor: {
+        warnings: false
+      }
+    })
     // new webpack.optimize.CommonsChunkPlugin({})
   ]
 };
