@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { VIEW } from '../../lib/const';
 
 /* Component styles */
@@ -9,7 +9,7 @@ import ChatMessages from '../ChatMessages/ChatMessages.jsx';
 import ChatInput from '../ChatInput/ChatInput.jsx';
 
 
-export default class Chat extends React.Component {
+export default class Chat extends Component {
   constructor(props) {
     super(props);
 

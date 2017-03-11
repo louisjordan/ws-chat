@@ -1,5 +1,5 @@
-import React from 'react';
-import { VIEW } from '../../lib/const.js';
+import React, { Component } from 'react';
+import { VIEW } from '../../lib/const';
 
 /* Component styles */
 import styles from './app.css';
@@ -8,8 +8,11 @@ import styles from './app.css';
 import Landing from '../Landing/Landing.jsx';
 import Chat from '../Chat/Chat.jsx';
 
+/* WebSocket server stuff */
+import ws from '../../lib/WSclient';
 
-export default class App extends React.Component {
+
+export default class App extends Component {
   constructor() {
     super();
 

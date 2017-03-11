@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { VIEW } from '../../lib/const';
 
 /* Component styles */
 import styles from './landing.css';
 
-export default class Landing extends React.Component {
+export default class Landing extends Component {
   constructor(props) {
     super(props);
 

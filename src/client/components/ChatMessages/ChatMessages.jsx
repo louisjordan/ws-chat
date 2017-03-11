@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { VIEW } from '../../lib/const';
 
 /* Component styles */
 import styles from './chat-messages.css';
 
-export default class ChatMessages extends React.Component {
+export default class ChatMessages extends Component {
   constructor(props) {
     super(props);
 

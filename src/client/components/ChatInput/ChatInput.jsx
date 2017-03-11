@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { VIEW } from '../../lib/const';
 
 /* Component styles */
 import styles from './chat-input.css';
 
-export default class ChatInput extends React.Component {
+export default class ChatInput extends Component {
   constructor(props) {
     super(props);
 
