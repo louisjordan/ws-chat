@@ -1,6 +1,9 @@
 import React from 'react';
 import { VIEW } from '../lib/const.js';
 
+/* Component styles */
+import styles from './app.css';
+
 /* Components */
 import Landing from './Landing.jsx';
 import Chat from './Chat.jsx';
@@ -35,7 +38,7 @@ export default class App extends React.Component {
 
   render() {
     return (
-      <div className="ws-chat">
+      <div className={styles.ws_chat}>
         <Landing current_view={this.state.current_view} setNickname={this.setNickname} changeView={this.changeView}/>
         <Chat current_view={this.state.current_view} nickname={this.state.nickname}/>
       </div>

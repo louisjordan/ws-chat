@@ -1,6 +1,9 @@
 import React from 'react';
 import { VIEW } from '../lib/const';
 
+/* Component styles */
+import styles from './chat-messages.css';
+
 export default class ChatMessages extends React.Component {
   constructor(props) {
     super(props);
@@ -12,9 +15,9 @@ export default class ChatMessages extends React.Component {
 
   render() {
     return (
-      <div className="chat-messages--container">
-        <div className="chat-messages--feed">
-
+      <div className={styles.container}>
+        <div className={styles.feed}>
+          Whats going on
         </div>
       </div>
     );

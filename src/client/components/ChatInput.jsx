@@ -1,6 +1,8 @@
 import React from 'react';
 import { VIEW } from '../lib/const';
 
+/* Component styles */
+import styles from './chat-input.css';
 
 export default class ChatInput extends React.Component {
   constructor(props) {
@@ -19,10 +21,10 @@ export default class ChatInput extends React.Component {
 
   render() {
     return (
-      <div className="chat-input--container">
-        <form className="chat-input--form" onSubmit={(e) => {this.handleInputSubmit(e);}}>
-          <input className="chat-input--input"></input>
-          <button className="chat-input--button">Send</button>
+      <div className={styles.container}>
+        <form className={styles.form} onSubmit={(e) => {this.handleInputSubmit(e);}}>
+          <input className={styles.message_input}></input>
+          <button className={styles.send_button}>Send</button>
         </form>
       </div>
     );

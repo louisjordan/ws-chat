@@ -45,13 +45,22 @@ module.exports = {
   module: {
     rules: [
       {
-        // only bundle .js and .jsx files
+        // transfrom js and jsx files
         test: /\.jsx?$/,
 
         exclude: /node_modules/,
 
         // use babel loader to transpile ES6+ and JSX to ES5 syntax
         loader: 'babel-loader'
+      },
+      {
+        // bundle css modules
+        test: /\.css$/,
+        loaders: [
+          'style-loader',
+          'css-loader?modules',
+          'postcss-loader'
+        ]
       }
     ]
   },

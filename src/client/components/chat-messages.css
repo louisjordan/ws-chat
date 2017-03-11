@@ -1,4 +1,4 @@
-.chat-messages--container {
+.container {
   width: 100%;
   background: #fff;
   flex-grow: 1;
@@ -7,11 +7,11 @@
   flex-direction: column;
 }
 
-.chat-messages--container > * {
+.container > * {
   margin: 8px;
 }
 
-.chat-messages--feed {
+.feed {
   flex-grow: 1;
   background: #f9f9f9;
 }

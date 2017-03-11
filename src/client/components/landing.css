@@ -1,7 +1,7 @@
 .landing {
 }
 
-.landing--container {
+.container {
   width: 30%;
   height: 350px;
   background: #fff;
@@ -10,26 +10,26 @@
   flex-direction: column;
 }
 
-.landing--content {
+.content {
   height: auto;
   text-align: center;
 }
 
-.landing--content > * {
+.content > * {
   margin: 24px 0;
 }
 
-.landing--header {
+.header {
   font-size: 2em;
   color: #111;
 }
 
-.landing--subheader {
+.subheader {
   font-size: 1em;
   color: #333;
 }
 
-.landing--input {
+.nickname_input {
   height: 48px;
   width: 50%;
   margin: auto 8px;
@@ -43,7 +43,7 @@
   border-bottom: 2px solid #111;
 }
 
-.landing--button {
+.nickname_submit {
   height: 48px;
   width: 48px;
   margin: auto 8px;
@@ -51,7 +51,7 @@
   font-size: 2em;
 }
 
-.landing--error {
+.nickname_error {
   height: 32px;
   color: #f33;
 }

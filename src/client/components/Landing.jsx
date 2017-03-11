@@ -1,6 +1,8 @@
 import React from 'react';
 import { VIEW } from '../lib/const';
 
+/* Component styles */
+import styles from './landing.css';
 
 export default class Landing extends React.Component {
   constructor(props) {
@@ -16,7 +18,7 @@ export default class Landing extends React.Component {
   }
 
   handleNicknameChange() {
-    let nickname = document.querySelector('.nickname-input').value;
+    let nickname = document.querySelector('[data-id="nickname-input"]').value;
 
     if(nickname.length < 3) {
       this.setState({input_error: 'Nickname is too short!'});
@@ -41,17 +43,17 @@ export default class Landing extends React.Component {
   render() {
     if(this.props.current_view === this.state.this_view) {
       return (
-        <div className="landing--container">
-          <div className="landing--content">
-            <h1 className="landing--header">Welcome to WS Chat!</h1>
-            <p className="landing--subheader">Please choose a name:</p>
+        <div className={styles.container}>
+          <div className={styles.content}>
+            <h1 className={styles.header}>Welcome to WS Chat!</h1>
+            <p className={styles.subheader}>Please choose a name:</p>
 
             <form method="post" onSubmit={(e) => {this.handleNicknameSubmit(e);}}>
-              <input type="text" className="landing--input nickname-input" onKeyUp={this.handleNicknameChange}/>
-              <button className="landing--button" type="submit">></button>
+              <input type="text" className={styles.nickname_input} data-id="nickname-input" onKeyUp={this.handleNicknameChange}/>
+              <button className={styles.nickname_submit} type="submit">></button>
             </form>
 
-            <div className="landing--error">{this.state.input_error}</div>
+            <div className={styles.nickname_error}>{this.state.input_error}</div>
           </div>
         </div>
       );
