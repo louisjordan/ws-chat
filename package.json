@@ -4,8 +4,9 @@
   "description": "A Node/Websocket/React chat app",
   "main": "",
   "scripts": {
-    "start": "",
-    "dev": "webpack-dev-server",
+    "start": "node src/server",
+    "dev:client": "webpack-dev-server --progress",
+    "dev:server": "NODE_ENV=development nodemon src/server",
     "build": "webpack",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

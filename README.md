@@ -30,16 +30,20 @@ Start the server:
 $ yarn start
 ```
 
-## Dev commands
+## Development process
 
-Bundle files once:
+The following commands start the Webpack Dev Server and WebSocket Server.
 
-```
-$ yarn build
-```
+**Run them at the same time in separate console windows.**
 
 Start Webpack Dev Server:
 
 ```
-$ yarn dev
+$ yarn dev:client
+```
+
+Start WebSocket Server:
+
+```
+$ yarn dev:server
 ```
