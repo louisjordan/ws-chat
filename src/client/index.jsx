@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
 
 /* Core App module */
-import App from './components/App.jsx';
+import App from './components/App/App.jsx';
 
 
 const render = (Component) => {
@@ -19,7 +19,7 @@ const render = (Component) => {
 render(App);
 
 if(module.hot) {
-  module.hot.accept('./components/App.jsx', () => {
+  module.hot.accept('./components/App/App.jsx', () => {
     render(App);
   });
 }

@@ -1,12 +1,12 @@
 import React from 'react';
-import { VIEW } from '../lib/const.js';
+import { VIEW } from '../../lib/const.js';
 
 /* Component styles */
 import styles from './app.css';
 
 /* Components */
-import Landing from './Landing.jsx';
-import Chat from './Chat.jsx';
+import Landing from '../Landing/Landing.jsx';
+import Chat from '../Chat/Chat.jsx';
 
 
 export default class App extends React.Component {

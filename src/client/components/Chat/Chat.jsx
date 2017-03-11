@@ -1,12 +1,12 @@
 import React from 'react';
-import { VIEW } from '../lib/const';
+import { VIEW } from '../../lib/const';
 
 /* Component styles */
 import styles from './chat.css';
 
 /* Chat Components */
-import ChatMessages from './ChatMessages.jsx';
-import ChatInput from './ChatInput.jsx';
+import ChatMessages from '../ChatMessages/ChatMessages.jsx';
+import ChatInput from '../ChatInput/ChatInput.jsx';
 
 
 export default class Chat extends React.Component {
