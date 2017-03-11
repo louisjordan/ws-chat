@@ -1,5 +1,5 @@
-[ ] Improve Webpack build process
-  [x] Minification
-  [ ] Remove duplicate modules
+- [ ] Improve Webpack build process
+ - [x] Minification
+ - [ ] Remove duplicate modules
 
-[ ] CSS module bundling
+- [x] CSS module bundling
