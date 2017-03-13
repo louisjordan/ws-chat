@@ -3,3 +3,5 @@
  - [ ] Remove duplicate modules
 
 - [x] CSS module bundling
+
+- [ ] Explore TDD strategy
