@@ -1,6 +1,8 @@
 # ws-chat
 
-A Node/Websocket/React chat app
+A Node/Websocket/React chat app.
+
+:warning: **This is a Work In Progress and nowhere near ready yet**
 
 ## Installation
 > Note: I'm using `yarn` dependency manager here but `npm` works just as well... ish.
