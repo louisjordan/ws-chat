@@ -5,14 +5,18 @@
   Prod env: WebSocket and HTTP server
 */
 
-const WSserver = require('./lib/WSServer');
+const ChatServer = require('./lib/ChatServer');
 
 
 
 const isDevEnv = process.env.NODE_ENV && process.env.NODE_ENV === 'development';
 
 if (isDevEnv) {
-  const ws = new WSserver({ port: 3030 });
+  const chatServer = new ChatServer({ port: 8080 });
+
+  chatServer.open().then(() => {
+    console.log('success');
+  });
 }
 
 // http.listen();
