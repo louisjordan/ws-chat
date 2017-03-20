@@ -5,10 +5,12 @@
 */
 
 const webpack = require('webpack');
-const { join } = require('path');
+const { resolve } = require('path');
+
+const environment = process.env && process.env.NODE_ENV ? process.env.NODE_ENV : 'development';
 
 module.exports = {
-  context: join(__dirname, '/src/client'),
+  context: resolve(__dirname, '../src/client'),
   devtool: 'inline-source-map',
   cache: true,
 
@@ -30,7 +32,7 @@ module.exports = {
 
   // output for bundled client code
   output: {
-    path: join(__dirname, '/dist'),
+    path: resolve(__dirname, '../dist'),
     filename: 'client.bundle.js'
   },
 
@@ -38,7 +40,7 @@ module.exports = {
     // active hot reloading
     hot: true,
 
-    contentBase: join(__dirname, '/dist'),
+    contentBase: resolve(__dirname, '../dist'),
     publicPath: '/'
   },
 
@@ -60,14 +62,22 @@ module.exports = {
         loaders: [
           'style-loader',
           'css-loader?modules',
-          'postcss-loader'
-        ]
+          {
+            loader: 'postcss-loader',
+            options: { plugins: () => [require('autoprefixer')] }
+          }
+        ],
       }
     ]
   },
 
   // plugins
   plugins: [
+    new webpack.DefinePlugin({
+      'process.env': {
+        'NODE_ENV': JSON.stringify(environment)
+      }
+    }),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NamedModulesPlugin(),
     new webpack.optimize.UglifyJsPlugin({

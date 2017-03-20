@@ -6,10 +6,10 @@
 
 const webpack = require('webpack');
 const nodeExternals = require('webpack-node-externals');
-const { join } = require('path');
+const { resolve } = require('path');
 
 module.exports = {
-  context: join(__dirname, '/src/server'),
+  context: resolve(__dirname, '../src/server'),
   devtool: 'inline-source-map',
   cache: true,
   target: 'node',
@@ -20,7 +20,7 @@ module.exports = {
 
   // output for bundled server code
   output: {
-    path: join(__dirname, '/dist'),
+    path: resolve(__dirname, '../dist'),
     filename: 'server.bundle.js'
   },
 

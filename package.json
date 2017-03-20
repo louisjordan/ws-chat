@@ -5,9 +5,9 @@
   "main": "",
   "scripts": {
     "start": "node src/server",
-    "dev:client": "webpack-dev-server --progress",
+    "dev:client": "NODE_ENV=development webpack-dev-server --progress --config tools/webpack.config.js",
     "dev:server": "NODE_ENV=development nodemon src/server",
-    "build": "webpack",
+    "build": "NODE_ENV=production webpack --config tools/webpack.config.js ",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Louis Jordan",
