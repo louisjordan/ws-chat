@@ -2,6 +2,8 @@
 
 const WebSocket = require('ws');
 
+const EVENT = require('../src/const').EVENT;
+
 const ChatServer = require('../src/server/lib/ChatServer');
 
 const server = new ChatServer({ port: 8080 });
@@ -75,32 +77,62 @@ describe('ChatServer', () => {
     }));
   });
 
+  describe('event handler', () => {
+    it('broadcasts to all connected clients when a new client connects', () => {
+      const client2nickname = 'bill';
+      const client1options = { headers: { nickname: 'bob' } };
+      const client2options = { headers: { nickname: client2nickname } };
 
+      return new Promise((resolve) => {
+        // open client1 socket
+        const client1 = new WebSocket(serverAddress, client1options);
 
-        client2.addEventListener('error', (err) => {});
-        client2.addEventListener('open', () => reject('Client 2 connection was accepted'));
+        // listen to messages and wait for a CLIENT_CONNECTED event with client2 nickname
+        client1.addEventListener('message', (message) => {
+          const messageObj = JSON.parse(message.data);
+
+          if (messageObj.type === EVENT.CLIENT_CONNECTED && messageObj.nickname === client2nickname) {
+            resolve();
+          }
+        });
+
+        client1.addEventListener('open', () => {
+          // when client1 opens, wait 2 seconds then open client 2
+          const client2 = new WebSocket(serverAddress, client2options);
+
+          client2.addEventListener('open', () => {});
+        });
       });
-
-      client1.addEventListener('error', (err) => reject(`Client 1 error: "${err}"`));
-    });
-  });
-
-  it('broadcasts to all connected clients when a new client connects', () => {
-    let client1options = { headers: { nickname: 'bob' } };
-    let client2options = { headers: { nickname: 'bill' } };
-
-    let client1 = new WebSocket(serverAddress, client1options);
-
-    client1.addEventListener('open', () => {
-      let client2 = new WebSocket(serverAddress, client2options);
     });
 
-    client1.addEventListener('message', (message) => {
-      // TODO: check message event type
+    /*
+      Open client 1 -> Open client 2 -> Close client 2 -> Check for disconnect message to client 1
+    */
+    it('broadcasts to all connected clients when a client disconnects', () => {
+      const client2nickname = 'bill';
+      const client1options = { headers: { nickname: 'bob' } };
+      const client2options = { headers: { nickname: client2nickname } };
+
+      return new Promise((resolve) => {
+        const client1 = new WebSocket(serverAddress, client1options);
+
+        client1.addEventListener('message', (message) => {
+          const messageObj = JSON.parse(message.data);
+
+          if (messageObj.type === EVENT.CLIENT_DISCONNECTED && messageObj.nickname === client2nickname) {
+            resolve();
+          }
+        });
+
+        client1.addEventListener('open', () => {
+          // when client1 opens, wait 2 seconds then open client 2
+          const client2 = new WebSocket(serverAddress, client2options);
+
+          client2.addEventListener('open', () => {
+            client2.close();
+          });
+        });
+      });
     });
-  });
-
-  it('broadcasts to all connected clients when a client disconnects', () => {
-
   });
 });
