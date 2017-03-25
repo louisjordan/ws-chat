@@ -1,4 +1,5 @@
 const WebSocket = require('ws');
+const EVENT = require('../../const').EVENT;
 
 class ChatServer {
   constructor(config = { port: 8080, httpServer: null }) {

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { VIEW } from '../../lib/const';
+import { VIEW } from '../../../const';
 
 /* Component styles */
 import styles from './chat-messages.css';
