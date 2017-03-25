@@ -12,13 +12,13 @@ const render = (Component) => {
     <AppContainer>
       <Component />
     </AppContainer>,
-    document.getElementById('app')
+    document.getElementById('app'),
   );
 };
 
 render(App);
 
-if(module.hot) {
+if (module.hot) {
   module.hot.accept('./components/App/App.jsx', () => {
     render(App);
   });

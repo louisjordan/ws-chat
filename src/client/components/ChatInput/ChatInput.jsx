@@ -22,11 +22,11 @@ export default class ChatInput extends Component {
   render() {
     return (
       <div className={styles.container}>
-        <form className={styles.form} onSubmit={(e) => {this.handleInputSubmit(e);}}>
-          <input className={styles.message_input}></input>
+        <form className={styles.form} onSubmit={(e) => { this.handleInputSubmit(e); }}>
+          <input className={styles.message_input} />
           <button className={styles.send_button}>Send</button>
         </form>
       </div>
     );
   }
-};
+}

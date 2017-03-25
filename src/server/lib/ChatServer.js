@@ -7,13 +7,13 @@ class ChatServer {
     this.httpServer = config.httpServer;
 
     this.chat = {
-      clients: []
+      clients: [],
     };
 
     this.serverConfig = {
       verifyClient: (info, callback) => {
         this.verifyClient(info, callback);
-      }
+      },
     };
   }
 
@@ -24,7 +24,7 @@ class ChatServer {
 
   */
   open() {
-    let config = this.serverConfig;
+    const config = this.serverConfig;
 
     if (this.httpServer) {
       config.server = this.httpServer;
@@ -33,9 +33,7 @@ class ChatServer {
     }
 
     return new Promise((resolve, reject) => {
-      const server = this.server = new WebSocket.Server(config);
-      server.on('message', (message) => this.messageEventHandler(message));
-      server.on('listening', () => resolve());
+      this.server = new WebSocket.Server(this.serverConfig);
     });
   }
 

@@ -22,4 +22,4 @@ export default class ChatMessages extends Component {
       </div>
     );
   }
-};
+}

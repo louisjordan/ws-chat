@@ -10,7 +10,7 @@ export default class Landing extends Component {
 
     this.state = {
       this_view: VIEW.LANDING,                      // this component is landing view
-      input_error: ''
+      input_error: '',
     };
 
     this.handleNicknameChange = this.handleNicknameChange.bind(this);
@@ -18,38 +18,38 @@ export default class Landing extends Component {
   }
 
   handleNicknameChange() {
-    let nickname = document.querySelector('[data-id="nickname-input"]').value;
+    const nickname = document.querySelector('[data-id="nickname-input"]').value;
 
-    if(nickname.length < 3) {
-      this.setState({input_error: 'Nickname is too short!'});
-    } else if(nickname.length > 16) {
-      this.setState({input_error: 'Nickname is too long!'});
+    if (nickname.length < 3) {
+      this.setState({ input_error: 'Nickname is too short!' });
+    } else if (nickname.length > 16) {
+      this.setState({ input_error: 'Nickname is too long!' });
     } else {
-      this.setState({input_error: '', nickname});
+      this.setState({ input_error: '', nickname });
     }
   }
 
   handleNicknameSubmit(e) {
     e.preventDefault();
 
-    let nickname = this.state.nickname;
+    const nickname = this.state.nickname;
 
-    if(!this.state.input_error && nickname) {
+    if (!this.state.input_error && nickname) {
       this.props.setNickname(nickname);
       this.props.changeView(VIEW.CHAT);
     }
   }
 
   render() {
-    if(this.props.current_view === this.state.this_view) {
+    if (this.props.current_view === this.state.this_view) {
       return (
         <div className={styles.container}>
           <div className={styles.content}>
             <h1 className={styles.header}>Welcome to WS Chat!</h1>
             <p className={styles.subheader}>Please choose a name:</p>
 
-            <form method="post" onSubmit={(e) => {this.handleNicknameSubmit(e);}}>
-              <input type="text" className={styles.nickname_input} data-id="nickname-input" onKeyUp={this.handleNicknameChange}/>
+            <form method="post" onSubmit={(e) => { this.handleNicknameSubmit(e); }}>
+              <input type="text" className={styles.nickname_input} data-id="nickname-input" onKeyUp={this.handleNicknameChange} />
               <button className={styles.nickname_submit} type="submit">></button>
             </form>
 
@@ -57,8 +57,7 @@ export default class Landing extends Component {
           </div>
         </div>
       );
-    } else {
-      return null;
     }
+    return null;
   }
-};
+}

@@ -18,7 +18,7 @@ export default class App extends Component {
 
     this.state = {
       current_view: VIEW.LANDING,    // the initial view is the landing screen
-      nickname: ''
+      nickname: '',
     };
 
     this.changeView = this.changeView.bind(this);
@@ -30,21 +30,21 @@ export default class App extends Component {
     @param nickname string
   */
   setNickname(nickname) {
-    this.setState({nickname});
+    this.setState({ nickname });
   }
 
   changeView(new_view) {
-    if(new_view) {
-      this.setState({current_view: new_view});
+    if (new_view) {
+      this.setState({ current_view: new_view });
     }
   }
 
   render() {
     return (
       <div className={styles.ws_chat}>
-        <Landing current_view={this.state.current_view} setNickname={this.setNickname} changeView={this.changeView}/>
-        <Chat current_view={this.state.current_view} nickname={this.state.nickname}/>
+        <Landing current_view={this.state.current_view} setNickname={this.setNickname} changeView={this.changeView} />
+        <Chat current_view={this.state.current_view} nickname={this.state.nickname} />
       </div>
     );
   }
-};
+}

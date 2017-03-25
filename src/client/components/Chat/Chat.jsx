@@ -14,20 +14,19 @@ export default class Chat extends Component {
     super(props);
 
     this.state = {
-      this_view: VIEW.CHAT                    // this component is landing view
+      this_view: VIEW.CHAT,                    // this component is landing view
     };
   }
 
   render() {
-    if(this.props.current_view === this.state.this_view) {
+    if (this.props.current_view === this.state.this_view) {
       return (
         <div className={styles.container}>
           <ChatMessages nickname={this.props.nickname} />
           <ChatInput nickname={this.props.nickname} />
         </div>
       );
-    } else {
-      return null;
     }
+    return null;
   }
-};
+}
