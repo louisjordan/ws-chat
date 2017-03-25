@@ -105,30 +105,21 @@ class ChatServer {
       401 - Nickname is taken
   */
   verifyClient(info, callback) {
-    if (info.req.headers.nickname) {
-      let nickname = info.req.headers.nickname,
-        clients = this.chat.clients,
-        nicknameAdded = false;
+    const nickname = info.req.headers.nickname;
+    const clients = this.chat.clients;
 
-      if (clients.length) {
-        clients.forEach((client, index) => {
-          if (!nicknameAdded) {
-            if (nickname === client) {
-              callback(false, 401, 'Nickname is taken');
-            } else if (index === clients.length - 1) {
-              this.addClient(nickname);
-              callback(true, 202, 'Nickname accepted');
-              nicknameAdded = true;
-            };
-          }
-        });
-      } else {
-        this.addClient(nickname);
-        callback(true, 202, 'Nickname accepted');
-      }
-    } else {
-      callback(false, 400, 'No nickname header provided');
-    }
+    // 400: No nickname header provided.
+    if (!nickname) return callback(false, 400, 'No nickname header provided');
+
+    // filter clients with the same name
+    const duplicateNickname = clients.filter(client => client.nickname === nickname);
+
+    // 401: Nickname is taken.
+    if (duplicateNickname.length) return callback(false, 401, 'Nickname is taken');
+
+    // 202: Nickname accepted
+    this.addClient(nickname);
+    return callback(true, 202, 'Nickname accepted');
   }
 
   /* Add a client to the client list */
