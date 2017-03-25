@@ -1,3 +1,5 @@
+/* eslint-env jest */
+
 const WebSocket = require('ws');
 
 const ChatServer = require('../src/server/lib/ChatServer');
