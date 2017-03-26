@@ -46,15 +46,33 @@ class ChatServer {
     this.server.close();
   }
 
+  /* Client close event handler */
+  socketCloseEventHandler(socket) {
+    let nickname;
+    this.chat.clients = this.chat.clients.reduce((clientList, client) => {
+      if (client.socket !== socket) {
+        clientList.push(client);
+      } else {
+        nickname = client.nickname;
+      }
+
+      return clientList;
+    }, []);
+
+    this.broadcastToAll({ type: EVENT.CLIENT_DISCONNECTED, nickname });
+  }
+
   /* New connection event handler */
   connectionEventHandler(socket) {
+    const nickname = socket.upgradeReq.headers.nickname;
+    this.addClient(socket, nickname);
     this.configureSocket(socket);
   }
 
   /* Configure socket events */
   configureSocket(socket) {
     socket.on('message', jsonMessage => this.socketMessageEventHandler(socket, jsonMessage));
-    socket.on('disconnect');
+    socket.on('close', () => this.socketCloseEventHandler(socket));
   }
 
   /* Socket message event handler */
@@ -73,12 +91,11 @@ class ChatServer {
 
   /* Send a message to all connected clients */
   broadcastToAll(messageObj) {
-    if (!messageObj.type) throw new Error('No message type');
     const jsonMessage = typeof messageObj === 'string' ? messageObj : JSON.stringify(messageObj);
 
-    this.server.clients.forEach((client) => {
-      if (client.readyState === WebSocket.OPEN) {
-        client.send(jsonMessage);
+    this.chat.clients.forEach((client) => {
+      if (client.socket.readyState === WebSocket.OPEN) {
+        client.socket.send(jsonMessage);
       }
     });
   }
@@ -88,9 +105,9 @@ class ChatServer {
     if (!messageObj.type) throw new Error('No message type');
     const jsonMessage = typeof messageObj === 'string' ? messageObj : JSON.stringify(messageObj);
 
-    this.server.clients.forEach((client) => {
-      if (client !== exceptClient && client.readyState === WebSocket.OPEN) {
-        client.send(jsonMessage);
+    this.chat.clients.forEach((client) => {
+      if (client.socket !== exceptClient && client.socket.readyState === WebSocket.OPEN) {
+        client.socket.send(jsonMessage);
       }
     });
   }
@@ -118,13 +135,12 @@ class ChatServer {
     if (duplicateNickname.length) return callback(false, 401, 'Nickname is taken');
 
     // 202: Nickname accepted
-    this.addClient(nickname);
     return callback(true, 202, 'Nickname accepted');
   }
 
   /* Add a client to the client list */
-  addClient(nickname) {
-    this.chat.clients.push({ nickname });
+  addClient(socket, nickname) {
+    this.chat.clients.push({ socket, nickname });
     this.broadcastToAll({ type: EVENT.CLIENT_CONNECTED, nickname });
   }
 
