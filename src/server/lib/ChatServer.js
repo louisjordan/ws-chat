@@ -3,9 +3,6 @@ const EVENT = require('../../const').EVENT;
 
 class ChatServer {
   constructor(config = { port: 8080, httpServer: null }) {
-    this.port = config.port;
-    this.httpServer = config.httpServer;
-
     this.chat = {
       clients: [],
     };
@@ -15,6 +12,14 @@ class ChatServer {
         this.verifyClient(info, callback);
       },
     };
+
+    // prioritise attaching WebSocket to http server if both server and port are provided
+    if (config.httpServer) {
+      this.serverConfig.server = config.httpServer;
+    } else {
+      this.port = config.port;
+      this.serverConfig.port = config.port;
+    }
   }
 
   /*
@@ -24,14 +29,6 @@ class ChatServer {
 
   */
   open() {
-    const config = this.serverConfig;
-
-    if (this.httpServer) {
-      config.server = this.httpServer;
-    } else {
-      config.port = this.port;
-    }
-
     return new Promise((resolve, reject) => {
       this.server = new WebSocket.Server(this.serverConfig);
       this.server.on('connection', socket => this.connectionEventHandler(socket));
