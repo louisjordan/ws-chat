@@ -5,6 +5,7 @@ class ChatServer {
   constructor(config = { port: 8080, httpServer: null }) {
     this.chat = {
       clients: [],
+      events: [],
     };
 
     this.serverConfig = {
@@ -39,7 +40,11 @@ class ChatServer {
 
   /* Empty the client list and close the WebSocket server */
   close() {
-    this.chat.clients = [];
+    this.chat = {
+      clients: [],
+      events: [],
+    };
+
     this.server.close();
   }
 
@@ -137,14 +142,26 @@ class ChatServer {
 
   /* Add a client to the client list */
   addClient(socket, nickname) {
+    const event = {
+      type: EVENT.CLIENT_CONNECTED,
+      nickname,
+    };
+
     this.chat.clients.push({ socket, nickname });
-    this.broadcastToAll({ type: EVENT.CLIENT_CONNECTED, nickname });
+    this.chat.events.push(event);
+    this.broadcastToAll(event);
   }
 
   /* Remove a client from the list */
   removeClient(nickname) {
+    const event = {
+      type: EVENT.CLIENT_DISCONNECTED,
+      nickname,
+    };
+
     this.chat.clients = this.chat.clients.filter(client => client.nickname !== nickname);
-    this.broadcastToAll({ type: EVENT.CLIENT_DISCONNECTED, nickname });
+    this.chat.events.push(event);
+    this.broadcastToAll(event);
   }
 
   pingEventHandler(data, socket) {
