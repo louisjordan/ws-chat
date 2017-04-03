@@ -82,13 +82,30 @@ class ChatServer {
     const messageObj = typeof jsonMessage === 'string' ? JSON.parse(jsonMessage) : jsonMessage;
     if (!messageObj.type) throw new Error('No message type');
 
+    const nickname = socket.upgradeReq.headers.nickname;
+
     switch (messageObj.type) {
       case EVENT.CHAT_MESSAGE:
-        this.broadcastToAll(messageObj);
+        this.sendChatMessage({ nickname, message: messageObj.message });
         break;
       default:
         throw new Error(`Unsupport message type ${messageObj.type}`);
     }
+  }
+
+  sendChatMessage(info = {}) {
+    if (!info.nickname) throw new Error('No from nickname');
+    if (!info.message) throw new Error('No message to send');
+
+    const event = {
+      type: EVENT.CHAT_MESSAGE,
+      nickname: info.nickname,
+      dateTime: Date.now(),
+      message: info.message,
+    };
+
+    this.chat.events.push(event);
+    this.broadcastToAll(event);
   }
 
   /* Send a message to all connected clients */

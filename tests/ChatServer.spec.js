@@ -134,5 +134,40 @@ describe('ChatServer', () => {
         });
       });
     });
+
+
+    /*
+      Open client 1 -> Open client 2 -> Send message from client 1 -> Check for message from client 2
+    */
+    it('broadcasts a CHAT_MESSAGE event to all clients when a client sends a message', () => {
+      const messageInput = 'Hello World!';
+      const chatMessage = JSON.stringify({ type: EVENT.CHAT_MESSAGE, message: messageInput });
+      const client1nickname = 'bob';
+      const client1options = { headers: { nickname: client1nickname } };
+      const client2options = { headers: { nickname: 'bill' } };
+
+      return new Promise((resolve) => {
+        const client1 = new WebSocket(serverAddress, client1options);
+
+        client1.addEventListener('open', () => {
+          // when client1 opens, wait 2 seconds then open client 2
+          const client2 = new WebSocket(serverAddress, client2options);
+
+          client2.addEventListener('open', () => {
+            client2.addEventListener('message', (message) => {
+              const messageObj = JSON.parse(message.data);
+
+              if (messageObj.type === EVENT.CHAT_MESSAGE && messageObj.nickname === client1nickname) {
+                if (messageObj.message === messageInput) {
+                  resolve();
+                }
+              }
+            });
+
+            client1.send(chatMessage);
+          });
+        });
+      });
+    });
   });
 });
